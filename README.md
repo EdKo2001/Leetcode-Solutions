@@ -1,2 +1,2 @@
 # Leetcode-Solutions
-Comprehensive repository featuring solutions to diverse programming challenges in Java, JavaScript, catering to both beginners and experienced developers.
+Welcome to my LeetCode solutions repository! Here, you'll find my solutions to various LeetCode problems implemented in Java and JavaScript, organized by problem number and name, accompanied by a brief description and explanation of the approach used.
