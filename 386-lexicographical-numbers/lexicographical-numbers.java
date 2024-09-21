@@ -41,7 +41,7 @@ class Solution {
     // }
     // }
 
-    // DFS Approach, Iterative
+    // Iterative
     // Time complexity: O(n)
     // Space complexity: O(n)
     public List<Integer> lexicalOrder(int n) {
