@@ -15,11 +15,21 @@
  */
 
 class Solution {
-    public int maxDepth(TreeNode root) {
-        if(root == null) return 0;
-
-        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+   public int maxDepth(TreeNode root) {
+        return dfs(root, 0);
     }
+
+    public int dfs(TreeNode node, int depth) {
+        if(node == null) return depth;
+
+        return Math.max(dfs(node.left, depth + 1), dfs(node.right, depth + 1));
+    }
+
+    // public int maxDepth(TreeNode root) {
+    //     if(root == null) return 0;
+
+    //     return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    // }
 
     // ITERATIVE DFS
     // public class Solution {
