@@ -11,12 +11,9 @@ class Solution {
         // Iterate through each word
         for (String currentWord : words) {
             // Check if the word is of length 1 or if its prefix exists in the set
-            if (
-                currentWord.length() == 1 ||
-                validWords.contains(
-                    currentWord.substring(0, currentWord.length() - 1)
-                )
-            ) {
+            if (currentWord.length() == 1 ||
+                    validWords.contains(
+                            currentWord.substring(0, currentWord.length() - 1))) {
                 // Add the current word to the set of valid words
                 validWords.add(currentWord);
 
