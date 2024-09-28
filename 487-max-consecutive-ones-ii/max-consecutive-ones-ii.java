@@ -1,19 +1,32 @@
 class Solution {
     public int findMaxConsecutiveOnes(int[] nums) {
-        int start = 0;
-        int maxNumber = 0;
-        int countIndex = -1;
+        int longestSequence = 0;
+        int left = 0;
+        int right = 0;
+        int numZeroes = 0;
 
-        for (int end = 0; end < nums.length; end++) {
-            if (nums[end] == 0) {
-                if (countIndex != -1) {
-                    start = countIndex + 1;
-                }
-                countIndex = end;
+        // While our window is in bounds
+        while (right < nums.length) {
+
+            // Increase numZeroes if the rightmost element is 0
+            if (nums[right] == 0) {
+                numZeroes++;
             }
-            maxNumber = Math.max(maxNumber, end - start + 1);
-        }
 
-        return maxNumber;
+            //If our window is invalid, contract our window
+            while (numZeroes == 2) {
+                if (nums[left] == 0) {
+                    numZeroes--;
+                }
+                left++;
+            }
+
+            // Update our longest sequence answer
+            longestSequence = Math.max(longestSequence, right - left + 1);
+
+            // Expand our window
+            right++;
+        }
+        return longestSequence;
     }
 }
