@@ -2,17 +2,18 @@ class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
 
-        for(char ch: s.toCharArray()) {
-            if(ch == '(') {
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
                 stack.add(')');
-            } else if(ch =='{') {
+            } else if (ch == '{') {
                 stack.add('}');
-            } else if(ch =='[') {
+            } else if (ch == '[') {
                 stack.add(']');
             } else {
-                if(stack.size() == 0) return false;
+                if (stack.size() == 0)
+                    return false;
                 char item = stack.pop();
-                if(item != ch) {
+                if (item != ch) {
                     return false;
                 }
             }
@@ -28,16 +29,16 @@ class Solution {
         // bracketLookup.put(']', '[');
 
         // for (int i = 0; i < s.length(); i++) {
-        //     char c = s.charAt(i);
-        //     if (bracketLookup.containsKey(c)) {
-        //         if (!brackets.isEmpty() && bracketLookup.get(c).equals(brackets.peek())) {
-        //             brackets.pop();
-        //         } else {
-        //             return false;
-        //         }
-        //     } else {
-        //         brackets.push(c);
-        //     }
+        // char c = s.charAt(i);
+        // if (bracketLookup.containsKey(c)) {
+        // if (!brackets.isEmpty() && bracketLookup.get(c).equals(brackets.peek())) {
+        // brackets.pop();
+        // } else {
+        // return false;
+        // }
+        // } else {
+        // brackets.push(c);
+        // }
         // }
 
         // return brackets.isEmpty();
