@@ -1,34 +1,41 @@
 class Solution {
     public int thirdMax(int[] nums) {
-        long firstMax = Long.MIN_VALUE;
-        long secondMax = Long.MIN_VALUE;
-        long thirdMax = Long.MIN_VALUE;
+        PriorityQueue<Integer> minHeap = new PriorityQueue();
+        Set<Integer> taken = new HashSet<Integer>();
 
-        for (int num : nums) {
-            if (firstMax == num || secondMax == num || thirdMax == num) {
+        for (int index = 0; index < nums.length; ++index) {
+            // If current number was already taken, skip it.
+            if (taken.contains(nums[index])) {
                 continue;
             }
 
-            if (firstMax <= num) {
-                thirdMax = secondMax;
-                secondMax = firstMax;
-                firstMax = num;
+            // If min heap already has three numbers in it.
+            // Pop the smallest if current number is bigger than it.
+            if (minHeap.size() == 3) {
+                if (minHeap.peek() < nums[index]) {
+                    taken.remove(minHeap.poll());
+
+                    minHeap.add(nums[index]);
+                    taken.add(nums[index]);
+                }
             }
-            else if (secondMax <= num) {
-                thirdMax = secondMax;
-                secondMax = num;
-            }
-            else if (thirdMax <= num) {
-                thirdMax = num;
+            // If min heap does not have three numbers we can push it.
+            else {
+                minHeap.add(nums[index]);
+                taken.add(nums[index]);
             }
         }
 
-        if (thirdMax == Long.MIN_VALUE) {
-            int ans = (int) firstMax;
-            return ans;
+        // 'nums' has only one distinct element it will be the maximum.
+        if (minHeap.size() == 1) {
+            return minHeap.peek();
+        }
+        // 'nums' has two distinct elements.
+        else if (minHeap.size() == 2) {
+            int firstNum = minHeap.poll();
+            return Math.max(firstNum, minHeap.peek());
         }
 
-        int ans = (int) thirdMax;
-        return ans;
+        return minHeap.peek();
     }
 }
