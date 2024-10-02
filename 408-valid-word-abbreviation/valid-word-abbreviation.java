@@ -39,7 +39,6 @@ class Solution {
             }
         }
 
-        // Both pointers should reach the end of their respective strings
-        return wordPointer == wLen ;
+        return wordPointer == wLen && abbrPointer == aLen;
     }
 }
