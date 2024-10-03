@@ -21,7 +21,7 @@ class Solution {
         int minLen = n;
 
         // Step 3: Iterate over the array
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; i++) {
             currentSum = (currentSum + nums[i]) % p;
 
             // Calculate what we need to remove
