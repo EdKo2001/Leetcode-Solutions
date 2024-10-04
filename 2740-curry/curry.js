@@ -3,16 +3,13 @@
  * @return {Function}
  */
 var curry = function (fn) {
-
     return function curried(...args) {
-        if (args.length < fn.length) {
-            return function (...nextArgs) {
-                return curried(...args, ...nextArgs);
-            }
-        } else {
-            return fn(...args);
+        if (args.length >= fn.length) {
+            return fn.apply(this, args);
         }
-    }
+
+        return curried.bind(this, ...args);
+    };
 };
 
 /**
