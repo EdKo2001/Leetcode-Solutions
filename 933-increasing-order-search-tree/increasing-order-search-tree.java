@@ -5,20 +5,20 @@ class Solution {
         TreeNode newTree = new TreeNode(0);
         curr = newTree;
 
-        bst(root);
+        inorder(root);
 
         return newTree.right;
     }
 
-    public void bst(TreeNode root) {
+    public void inorder(TreeNode root) {
         if (root == null)
             return;
 
-        bst(root.left);
+        inorder(root.left);
 
         curr.right = new TreeNode(root.val);
         curr = curr.right;
 
-        bst(root.right);
+        inorder(root.right);
     }
 }
