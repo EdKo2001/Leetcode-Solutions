@@ -1,20 +1,40 @@
 class KthLargest {
-    int k;
-    List<Integer> stream = new ArrayList<>();
+    // int k;
+    // List<Integer> stream = new ArrayList<>();
+
+    // public KthLargest(int k, int[] nums) {
+    //     this.k = k;
+    //     for(int i = 0; i < nums.length; i++) {
+    //         stream.add(nums[i]);
+    //     }
+    // }
+    
+    // public int add(int val) {
+    //     stream.add(val);
+    //     Collections.sort(stream, Comparator.reverseOrder());
+    //     return stream.get(k - 1);
+    // }
+
+    private PriorityQueue<Integer> minHeap;
+    private int k;
 
     public KthLargest(int k, int[] nums) {
         this.k = k;
-        for(int i = 0; i < nums.length; i++) {
-            stream.add(nums[i]);
+        this.minHeap = new PriorityQueue<>();
+        for (int num : nums) {
+            add(num);
         }
     }
-    
+
     public int add(int val) {
-        stream.add(val);
-        Collections.sort(stream, Comparator.reverseOrder());
-        return stream.get(k - 1);
+        minHeap.offer(val);
+        if (minHeap.size() > k) {
+            minHeap.poll();
+        }
+        return minHeap.peek();
     }
 }
+
 
 
 /**
