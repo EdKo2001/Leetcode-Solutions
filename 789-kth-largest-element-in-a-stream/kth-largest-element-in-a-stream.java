@@ -27,18 +27,12 @@ class KthLargest {
     }
 
     public int add(int val) {
-        // minHeap.offer(val);
-        // if (minHeap.size() > k) {
-        // minHeap.poll();
-        // }
-        // return minHeap.peek();
-
         // Add to our minHeap if we haven't processed k elements yet
         // or if val is greater than the top element (the k-th largest)
         if (minHeap.size() < k || minHeap.peek() < val) {
-            minHeap.add(val);
+            minHeap.offer(val);
             if (minHeap.size() > k) {
-                minHeap.remove();
+                minHeap.poll();
             }
         }
         return minHeap.peek();
