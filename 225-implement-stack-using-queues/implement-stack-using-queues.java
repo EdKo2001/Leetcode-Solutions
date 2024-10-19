@@ -13,7 +13,7 @@ class MyStack {
     }
 
     public int pop() {
-        return queue.remove();
+        return queue.poll();
     }
 
     public int top() {
