@@ -2,27 +2,16 @@ class Solution {
 
     public int maxUniqueSplit(String s) {
         Set<String> seen = new HashSet<>();
-        int[] maxCount = new int[1];
-        backtrack(s, 0, seen, 0, maxCount);
-        return maxCount[0];
+        return backtrack(s, 0, seen);
     }
 
-    private void backtrack(
-            String s,
-            int start,
-            Set<String> seen,
-            int count,
-            int[] maxCount) {
-        // Prune: If the current count plus remaining characters can't exceed maxCount,
-        // return
-        if (count + (s.length() - start) <= maxCount[0])
-            return;
+    private int backtrack(String s, int start, Set<String> seen) {
+        // Base case: If we reach the end of the string, return 0 (no more substrings to
+        // add)
+        if (start == s.length())
+            return 0;
 
-        // Base case: If we reach the end of the string, update maxCount
-        if (start == s.length()) {
-            maxCount[0] = Math.max(maxCount[0], count);
-            return;
-        }
+        int maxCount = 0;
 
         // Try every possible substring starting from 'start'
         for (int end = start + 1; end <= s.length(); ++end) {
@@ -32,10 +21,11 @@ class Solution {
                 // Add the substring to the seen set
                 seen.add(substring);
                 // Recursively count unique substrings from the next position
-                backtrack(s, end, seen, count + 1, maxCount);
+                maxCount = Math.max(maxCount, 1 + backtrack(s, end, seen));
                 // Backtrack: remove the substring from the seen set
                 seen.remove(substring);
             }
         }
+        return maxCount;
     }
 }
