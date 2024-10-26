@@ -1,25 +1,23 @@
 class Solution {
     public String largestNumber(int[] nums) {
-        // Convert each integer to a string
-        String[] numStrings = new String[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            numStrings[i] = Integer.toString(nums[i]);
+        StringBuilder res = new StringBuilder();
+        PriorityQueue<String> maxHeap = new PriorityQueue<>(
+                new Comparator<String>() {
+                    @Override
+                    public int compare(String first, String second) {
+                        return (second + first).compareTo(first + second);
+                    }
+                });
+
+        for (int num : nums) {
+            maxHeap.offer(Integer.toString(num));
         }
 
-        // Sort strings based on concatenated values
-        Arrays.sort(numStrings, (a, b) -> (b + a).compareTo(a + b));
-
-        // Handle the case where the largest number is zero
-        if (numStrings[0].equals("0")) {
-            return "0";
+        while (maxHeap.size() > 0) {
+            res.append(maxHeap.poll());
         }
 
-        // Concatenate sorted strings to form the largest number
-        StringBuilder largestNum = new StringBuilder();
-        for (String numStr : numStrings) {
-            largestNum.append(numStr);
-        }
-
-        return largestNum.toString();
+        // Handle edge case where the result might be "000...0"
+        return res.charAt(0) == '0' ? "0" : res.toString();
     }
 }
