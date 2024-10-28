@@ -49,7 +49,7 @@ class Solution {
         // DP table calculations. Note: we are not using any
         // table here for storing values. Just using two
         // variables will suffice.
-        for (int i = N - 2; i >= 0; --i) {
+        for (int i = N - 2; i >= 0; i--) {
             // Same as the recursive solution.
             int current = Math.max(robNext, robNextPlusOne + nums[i]);
 
