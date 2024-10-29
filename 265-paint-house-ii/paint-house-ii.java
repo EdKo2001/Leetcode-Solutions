@@ -1,7 +1,9 @@
 class Solution {
     public int minCostII(int[][] costs) {
         int n = costs.length;
+        if (n == 0) return 0; // Handle edge case of no houses
         int k = costs[0].length;
+        if (k == 0) return 0; // Handle edge case of no colors
         
         // DP table
         int[][] dp = new int[n][k];
