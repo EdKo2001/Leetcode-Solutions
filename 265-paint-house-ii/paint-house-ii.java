@@ -1,39 +1,42 @@
 class Solution {
     public int minCostII(int[][] costs) {
-        int minCost = Integer.MAX_VALUE;
-        Integer[][] memo = new Integer[costs.length][costs[0].length];
+        int n = costs.length;
+        if (n == 0) return 0; // Handle edge case of no houses
+        int k = costs[0].length;
+        if (k == 0) return 0; // Handle edge case of no colors
+        
+        // DP table
+        int[][] dp = new int[n][k];
 
-        // Try starting with each color for the first house
-        for (int j = 0; j < costs[0].length; j++) {
-            minCost = Math.min(minCost, dfs(costs, 0, j, memo));
+        // Base case: first house costs
+        for (int j = 0; j < k; j++) {
+            dp[0][j] = costs[0][j];
+        }
+
+        // Fill the DP table
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < k; j++) {
+                dp[i][j] = costs[i][j] + findMinCost(dp, i - 1, j, k);
+            }
+        }
+
+        // Find the minimum cost in the last row
+        int minCost = Integer.MAX_VALUE;
+        for (int j = 0; j < k; j++) {
+            minCost = Math.min(minCost, dp[n - 1][j]);
         }
 
         return minCost;
     }
 
-    private int dfs(int[][] costs, int i, int j, Integer[][] memo) {
-        int n = costs.length;
-        int m = costs[0].length;
-
-        // Base case: if we've reached beyond the last row
-        if (i >= n)
-            return 0;
-
-        // Use memoized result if available
-        if (memo[i][j] != null)
-            return memo[i][j];
-
+    // Helper function to find the minimum cost for the previous house excluding the same color
+    private int findMinCost(int[][] dp, int i, int j, int k) {
         int minCost = Integer.MAX_VALUE;
-
-        for (int color = 0; color < m; color++) {
+        for (int color = 0; color < k; color++) {
             if (color != j) {
-                minCost = Math.min(minCost, costs[i][j] + dfs(costs, i + 1, color, memo));
+                minCost = Math.min(minCost, dp[i][color]);
             }
         }
-
-        // Memoize the result
-        memo[i][j] = minCost;
-
         return minCost;
     }
 }
