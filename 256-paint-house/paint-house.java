@@ -1,33 +1,38 @@
 class Solution {
     public int minCost(int[][] costs) {
         int minCost = Integer.MAX_VALUE;
-        Integer memo[][] = new Integer[costs.length][costs[0].length];
+        Integer[][] memo = new Integer[costs.length][costs[0].length];
 
+        // Try starting with each color for the first house
         for (int j = 0; j < costs[0].length; j++) {
-            minCost = Math.min(minCost, bfs(costs, 0, j, memo));
+            minCost = Math.min(minCost, dfs(costs, 0, j, memo));
         }
 
         return minCost;
     }
 
-    private int bfs(int[][] costs, int i, int j, Integer[][] memo) {
+    private int dfs(int[][] costs, int i, int j, Integer[][] memo) {
         int n = costs.length;
-        int m = costs[0].length;
 
-        if (i + 1 > n)
+        // Base case: if we've reached beyond the last row
+        if (i >= n)
             return 0;
 
+        // Use memoized result if available
         if (memo[i][j] != null)
             return memo[i][j];
 
-        int minCost = Integer.MAX_VALUE;
+        // Compute minimum cost to paint current house i with color j
+        int nextCostRed = j != 0 ? dfs(costs, i + 1, 0, memo) : Integer.MAX_VALUE;
+        int nextCostBlue = j != 1 ? dfs(costs, i + 1, 1, memo) : Integer.MAX_VALUE;
+        int nextCostGreen = j != 2 ? dfs(costs, i + 1, 2, memo) : Integer.MAX_VALUE;
 
-        int red = j != 0 ? costs[i][j] + bfs(costs, i + 1, 0, memo) : Integer.MAX_VALUE;
-        int blue = j != 1 && j + 1 <= m ? costs[i][j] + bfs(costs, i + 1, 1, memo) : Integer.MAX_VALUE;
-        int green = j != 2 && j + 2 <= m ? costs[i][j] + bfs(costs, i + 1, 2, memo) : Integer.MAX_VALUE;
+        // Current cell cost + minimum of future options
+        int minCost = costs[i][j] + Math.min(nextCostRed, Math.min(nextCostBlue, nextCostGreen));
 
-        minCost = Math.min(red, Math.min(blue, green));
+        // Memoize the result
         memo[i][j] = minCost;
+
         return minCost;
     }
 }
