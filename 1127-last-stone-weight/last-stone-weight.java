@@ -17,6 +17,6 @@ class Solution {
                 maxHeap.offer(stone1 - stone2);
         }
 
-        return maxHeap.size() == 1? maxHeap.peek() : 0;
+        return maxHeap.size() == 1 ? maxHeap.peek() : 0;
     }
 }
