@@ -1,6 +1,6 @@
 class Solution {
     public int shareCandies(int[] candies, int k) {
-      Map<Integer, Integer> cnt = new HashMap<>();
+        Map<Integer, Integer> cnt = new HashMap<>();
         int n = candies.length;
         for (int i = k; i < n; ++i) {
             cnt.merge(candies[i], 1, Integer::sum);
