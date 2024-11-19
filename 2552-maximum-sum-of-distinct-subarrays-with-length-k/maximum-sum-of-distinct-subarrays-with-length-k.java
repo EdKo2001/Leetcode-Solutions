@@ -1,45 +1,34 @@
 class Solution {
     public long maximumSubarraySum(int[] nums, int k) {
-        long max = 0;
-        long prefixSum = 0;
-        
-        // HashMap to store the frequency of elements in the current window
-        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
-        
-        // Initialize the first window of size k
-        for (int i = 0; i < k; i++) {
-            int curr = nums[i];
-            frequencyMap.put(curr, frequencyMap.getOrDefault(curr, 0) + 1);
-            prefixSum += curr;
-        }
-        
-        // If the window contains exactly k unique elements, we update max
-        if (frequencyMap.size() == k) {
-            max = Math.max(max, prefixSum);
-        }
-        
-        // Slide the window across the array
-        for (int i = k; i < nums.length; i++) {
-            int left = nums[i - k];
-            int right = nums[i];
-            
-            // Remove the element that is leaving the window
-            frequencyMap.put(left, frequencyMap.get(left) - 1);
-            if (frequencyMap.get(left) == 0) {
-                frequencyMap.remove(left);
+        long maxSum = 0; // Stores the maximum subarray sum
+        long currentSum = 0; // Stores the current window's sum
+        HashSet<Integer> set = new HashSet<>(); // Tracks unique elements in the window
+
+        int start = 0; // Left pointer of the window
+
+        for (int end = 0; end < nums.length; end++) {
+            // Shrink the window if the current element is already in the set
+            while (set.contains(nums[end])) {
+                set.remove(nums[start]);
+                currentSum -= nums[start];
+                start++;
             }
-            prefixSum -= left;
 
-            // Add the new element that is entering the window
-            frequencyMap.put(right, frequencyMap.getOrDefault(right, 0) + 1);
-            prefixSum += right;
+            // Add the current element to the window
+            set.add(nums[end]);
+            currentSum += nums[end];
 
-            // If the window contains exactly k unique elements, check the sum
-            if (frequencyMap.size() == k) {
-                max = Math.max(max, prefixSum);
+            // Check if the window size is exactly k
+            if (end - start + 1 == k) {
+                maxSum = Math.max(maxSum, currentSum);
+
+                // Slide the window by removing the leftmost element
+                set.remove(nums[start]);
+                currentSum -= nums[start];
+                start++;
             }
         }
-        
-        return max;
+
+        return maxSum;
     }
 }
