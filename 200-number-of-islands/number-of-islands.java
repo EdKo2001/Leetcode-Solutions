@@ -30,8 +30,8 @@ class Solution {
     private void bfs(char[][] grid, int i, int j) {
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[] { i, j });
-        grid[i][j] = '0';
-        
+        // grid[i][j] = '0';
+
         int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
         while (!queue.isEmpty()) {
