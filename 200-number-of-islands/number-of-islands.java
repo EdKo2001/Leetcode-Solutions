@@ -30,15 +30,14 @@ class Solution {
     private void bfs(char[][] grid, int i, int j) {
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[] { i, j });
-        // grid[i][j] = '0';
-
+        grid[i][j] = '0';
+        
         int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
         while (!queue.isEmpty()) {
             int[] pair = queue.poll();
             int row = pair[0];
             int col = pair[1];
-    
 
             for (int[] dir : directions) {
                 int newRow = row + dir[0];
