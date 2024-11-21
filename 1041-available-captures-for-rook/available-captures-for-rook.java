@@ -2,10 +2,12 @@ class Solution {
     public int numRookCaptures(char[][] board) {
         int cnt = 0;
 
+        // Locate the rook
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j] == 'R') {
-                    cnt = checkAttack(board, i, j);
+                    cnt = checkAttack(board, i, j); // Start checking from the rook's position
+                    return cnt; // Only one rook is present, so we can return immediately
                 }
             }
         }
@@ -16,49 +18,45 @@ class Solution {
     private int checkAttack(char[][] board, int row, int col) {
         int cnt = 0;
 
-        boolean canAttack = false;
-        for (int i = 0; i < col; i++) {
-            if (board[row][i] == 'p')
-                canAttack = true;
-            else if (board[row][i] == 'B')
-                canAttack = false;
+        // Check left
+        for (int i = col - 1; i >= 0; i--) {
+            if (board[row][i] == 'B')
+                break; // Stop if bishop is encountered
+            if (board[row][i] == 'p') {
+                cnt++;
+                break; // Stop after capturing a pawn
+            }
         }
 
-        if (canAttack)
-            cnt++;
-
-        canAttack = false;
-        for (int i = 7; i > col; i--) {
-            if (board[row][i] == 'p')
-                canAttack = true;
-            else if (board[row][i] == 'B')
-                canAttack = false;
+        // Check right
+        for (int i = col + 1; i < 8; i++) {
+            if (board[row][i] == 'B')
+                break;
+            if (board[row][i] == 'p') {
+                cnt++;
+                break;
+            }
         }
 
-        if (canAttack)
-            cnt++;
-
-        canAttack = false;
-        for (int i = 0; i < row; i++) {
-            if (board[i][col] == 'p')
-                canAttack = true;
-            else if (board[i][col] == 'B')
-                canAttack = false;
+        // Check up
+        for (int i = row - 1; i >= 0; i--) {
+            if (board[i][col] == 'B')
+                break;
+            if (board[i][col] == 'p') {
+                cnt++;
+                break;
+            }
         }
 
-        if (canAttack)
-            cnt++;
-
-        canAttack = false;
-        for (int i = 7; i > row; i--) {
-            if (board[i][col] == 'p')
-                canAttack = true;
-            else if (board[i][col] == 'B')
-                canAttack = false;
+        // Check down
+        for (int i = row + 1; i < 8; i++) {
+            if (board[i][col] == 'B')
+                break;
+            if (board[i][col] == 'p') {
+                cnt++;
+                break;
+            }
         }
-
-        if (canAttack)
-            cnt++;
 
         return cnt;
     }
