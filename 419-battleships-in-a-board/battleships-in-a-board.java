@@ -6,8 +6,12 @@ class Solution {
             for (int j = 0; j < board[0].length; j++) {
                 if (board[i][j] == 'X') {
                     // dfs(board, i, j);
-                    bfs(board, i, j);
-                    cnt++;
+                    // bfs(board, i, j);
+                    // cnt++;
+
+                    if ((i == 0 || board[i - 1][j] == '.') && (j == 0 || board[i][j - 1] == '.')) {
+                        cnt++;
+                    }
                 }
             }
         }
@@ -27,28 +31,29 @@ class Solution {
     // dfs(grid, i + 1, j);
     // }
 
-    private void bfs(char[][] grid, int i, int j) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[] { i, j });
+    // private void bfs(char[][] grid, int i, int j) {
+    // Queue<int[]> queue = new LinkedList<>();
+    // queue.offer(new int[] { i, j });
 
-        while (!queue.isEmpty()) {
-            int[] location = queue.poll();
-            int row = location[0];
-            int col = location[1];
+    // while (!queue.isEmpty()) {
+    // int[] location = queue.poll();
+    // int row = location[0];
+    // int col = location[1];
 
-            grid[row][col] = '.';
+    // grid[row][col] = '.';
 
-            int[][] directions = { { 0, 1 }, { 1, 0 } };
-            for (int[] direction : directions) {
-                int newRow = row + direction[0];
-                int newCol = col + direction[1];
+    // int[][] directions = { { 0, 1 }, { 1, 0 } };
+    // for (int[] direction : directions) {
+    // int newRow = row + direction[0];
+    // int newCol = col + direction[1];
 
-                if (newRow < 0 || newRow >= grid.length || newCol < 0 || newCol >= grid[0].length
-                        || grid[newRow][newCol] != 'X')
-                    continue;
+    // if (newRow < 0 || newRow >= grid.length || newCol < 0 || newCol >=
+    // grid[0].length
+    // || grid[newRow][newCol] != 'X')
+    // continue;
 
-                queue.offer(new int[] { newRow, newCol });
-            }
-        }
-    }
+    // queue.offer(new int[] { newRow, newCol });
+    // }
+    // }
+    // }
 }
