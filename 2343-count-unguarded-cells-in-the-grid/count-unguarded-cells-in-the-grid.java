@@ -24,7 +24,9 @@ class Solution {
 
                 while (newX >= 0 && newX < m && newY >= 0 && newY < n && grid[newX][newY] != -1
                         && grid[newX][newY] != -2) {
-                   grid[newX][newY] = 1;
+                    if (grid[newX][newY] == 0) {
+                        grid[newX][newY] = 1; // Mark as guarded
+                    }
                     newX += dir[0];
                     newY += dir[1];
                 }
