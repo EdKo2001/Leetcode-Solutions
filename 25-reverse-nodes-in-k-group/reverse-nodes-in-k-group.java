@@ -13,36 +13,36 @@ class Solution {
         if (head == null || k == 1)
             return head;
 
-        // Check if there are at least k nodes left in the list
-        ListNode node = head;
-        int count = 0;
-        while (node != null && count < k) {
-            node = node.next;
-            count++;
-        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prevGroupEnd = dummy;
 
-        // If there are k nodes, proceed with reversal
-        if (count == k) {
-            ListNode cur = head;
-            ListNode prev = null;
-            ListNode next = null;
+        while (true) {
+            // Check if there are at least k nodes left to reverse
+            ListNode kthNode = prevGroupEnd;
+            for (int i = 0; i < k && kthNode != null; i++) {
+                kthNode = kthNode.next;
+            }
+            if (kthNode == null)
+                break; // Not enough nodes to reverse, exit loop
 
             // Reverse k nodes
+            ListNode groupStart = prevGroupEnd.next;
+            ListNode prev = kthNode.next;
+            ListNode current = groupStart;
+
             for (int i = 0; i < k; i++) {
-                next = cur.next;
-                cur.next = prev;
-                prev = cur;
-                cur = next;
+                ListNode nextTemp = current.next;
+                current.next = prev;
+                prev = current;
+                current = nextTemp;
             }
 
-            // Recursively call reverseKGroup on the remaining nodes
-            head.next = reverseKGroup(next, k);
-
-            // Return the new head of the reversed group
-            return prev;
+            // Connect the reversed group to the rest of the list
+            prevGroupEnd.next = prev; // prev is now the first node of the reversed group
+            prevGroupEnd = groupStart; // Move to the end of the current group
         }
 
-        // If less than k nodes remain, return the head as-is
-        return head;
+        return dummy.next;
     }
 }
