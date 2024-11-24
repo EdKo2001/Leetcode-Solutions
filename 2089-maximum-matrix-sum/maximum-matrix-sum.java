@@ -13,11 +13,12 @@ class Solution {
             }
         }
 
-        if (negativeCount % 2 == 0) {
-            return totalSum; // All values can be made positive
-        } else {
+        if ((negativeCount & 1) == 1) {
             return totalSum - 2 * minAbs; // One value remains negative
+
         }
+
+        return totalSum; // All values can be made positive
     }
 
 }
