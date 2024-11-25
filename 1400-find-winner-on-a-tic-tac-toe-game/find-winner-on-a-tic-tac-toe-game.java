@@ -8,8 +8,8 @@ class Solution {
             int col = moves[i][1];
             grid[row][col] = turn;
 
-            // Check for a winner after each move
-            if (checkWinner(grid, turn)) {
+            // Start checking for a winner only after 5 moves (3 by 'A')
+            if (i >= 4 && checkWinner(grid, turn)) {
                 return turn == 'A' ? "A" : "B"; // Return the winner
             }
 
