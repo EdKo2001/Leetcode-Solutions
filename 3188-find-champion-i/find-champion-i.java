@@ -1,13 +1,18 @@
 class Solution {
     public int findChampion(int[][] grid) {
-        for (int i = 0; i < grid.length; i++) {
-            int strongerThan = 0;
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1)
-                    strongerThan++;
+        int n = grid.length;
+
+        for (int i = 0; i < n; i++) {
+            boolean isChampion = true;
+            for (int j = 0; j < n; j++) {
+                if (i != j && grid[i][j] == 0) {
+                    isChampion = false;
+                    break;
+                }
             }
-            if (strongerThan > grid.length - 2)
+            if (isChampion) {
                 return i;
+            }
         }
 
         return -1;
