@@ -5,16 +5,22 @@ class Solution {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
-        PriorityQueue<Pair<Integer, Integer>> maxHeap = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(
+            (a, b) -> a.getValue() - b.getValue());
 
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            maxHeap.offer(new Pair<>(entry.getKey(), entry.getValue()));
+            minHeap.offer(new Pair<>(entry.getKey(), entry.getValue()));
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
         }
 
-        int[] res = new int[k];
-        for (int i = 0; i < k; i++) {
-            res[i] = maxHeap.poll().getKey();
+        int[] result = new int[k];
+        int index = 0;
+        while (!minHeap.isEmpty()) {
+            result[index++] = minHeap.poll().getKey();
         }
-        return res;
+
+        return result;
     }
 }
