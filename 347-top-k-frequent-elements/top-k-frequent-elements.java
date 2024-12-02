@@ -3,28 +3,25 @@ class Solution {
         if (k == nums.length) {
             return nums;
         }
-        
-        HashMap<Integer, Integer> map = new HashMap<>();
+
+        Map<Integer, Integer> count = new HashMap<>();
         for (int num : nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            count.put(num, count.getOrDefault(num, 0) + 1);
         }
 
-        PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(
-            (a, b) -> a.getValue() - b.getValue());
+        Queue<Integer> minHeap = new PriorityQueue<>(
+                (n1, n2) -> count.get(n1) - count.get(n2));
 
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            minHeap.offer(new Pair<>(entry.getKey(), entry.getValue()));
-            if (minHeap.size() > k) {
+        for (int n : count.keySet()) {
+            minHeap.add(n);
+            if (minHeap.size() > k)
                 minHeap.poll();
-            }
         }
 
-        int[] result = new int[k];
-        int index = 0;
-        while (!minHeap.isEmpty()) {
-            result[index++] = minHeap.poll().getKey();
+        int[] top = new int[k];
+        for (int i = k - 1; i >= 0; i--) {
+            top[i] = minHeap.poll();
         }
-
-        return result;
+        return top;
     }
 }
