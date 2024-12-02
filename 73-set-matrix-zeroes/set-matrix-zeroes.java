@@ -1,25 +1,57 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
-        HashSet<Pair<Integer, Integer>> zeroes = new HashSet<>();
-
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] == 0)
-                    zeroes.add(new Pair(i, j));
+        boolean firstRowZero = false;
+        boolean firstColZero = false;
+        
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        
+        // Check if the first row or column has any zero
+        for (int i = 0; i < rows; i++) {
+            if (matrix[i][0] == 0) {
+                firstColZero = true;
+                break;
             }
         }
-
-        for (Pair<Integer, Integer> zero : zeroes) {
-            setZeroes(matrix, zero.getKey(), zero.getValue());
+        
+        for (int j = 0; j < cols; j++) {
+            if (matrix[0][j] == 0) {
+                firstRowZero = true;
+                break;
+            }
         }
-    }
-
-    private void setZeroes(int[][] matrix, int i, int j) {
-        for (int row = 0; row < matrix.length; row++) {
-            matrix[row][j] = 0;
+        
+        // Use the first row and column to mark zeroes
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;  // Mark corresponding row
+                    matrix[0][j] = 0;  // Mark corresponding column
+                }
+            }
         }
-        for (int col = 0; col < matrix[0].length; col++) {
-            matrix[i][col] = 0;
+        
+        // Set zeroes based on marks, skip the first row and column
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+        // Handle the first row separately if needed
+        if (firstRowZero) {
+            for (int j = 0; j < cols; j++) {
+                matrix[0][j] = 0;
+            }
+        }
+        
+        // Handle the first column separately if needed
+        if (firstColZero) {
+            for (int i = 0; i < rows; i++) {
+                matrix[i][0] = 0;
+            }
         }
     }
 }
