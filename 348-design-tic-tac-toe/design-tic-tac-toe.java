@@ -1,23 +1,22 @@
 class TicTacToe {
-    char[][] board;
+    private int[][] board;
+    private int n;
 
     public TicTacToe(int n) {
-        board = new char[n][n];
+        board = new int[n][n];
+        this.n = n;
     }
 
     public int move(int row, int col, int player) {
-        char move = player == 1 ? 'X' : 'O';
-        board[row][col] = move;
+        board[row][col] = player;
 
-        if (checkWinner(move))
+        if (checkWinner(player))
             return player;
 
         return 0;
     }
 
-    private boolean checkWinner(char player) {
-        int n = board.length;
-
+    private boolean checkWinner(int player) {
         boolean mainDiagonal = true;
         boolean antiDiagonal = true;
         for (int i = 0; i < n; i++) {
