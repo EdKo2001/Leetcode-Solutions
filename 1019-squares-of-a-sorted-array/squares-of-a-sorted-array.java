@@ -1,27 +1,28 @@
 class Solution {
     public int[] sortedSquares(int[] nums) {
-        int n = nums.length;
-        int[] res = new int[n];
+        int[] res = new int[nums.length];
 
-        // Two-pointer approach: start from both ends of the array
         int left = 0;
-        int right = n - 1;
-        int resPointer = n - 1;
+        int right = nums.length - 1;
+        int resIndex = 0;
 
         while (left <= right) {
-            int leftSquare = nums[left] * nums[left];
-            int rightSquare = nums[right] * nums[right];
-
-            if (leftSquare > rightSquare) {
-                res[resPointer] = leftSquare;
+            int leftNum = nums[left] * nums[left];
+            int rightNum = nums[right] * nums[right];
+            if (leftNum > rightNum) {
+                res[resIndex++] = leftNum;
                 left++;
             } else {
-                res[resPointer] = rightSquare;
+                res[resIndex++] = rightNum;
                 right--;
             }
-            resPointer--;
         }
 
-        return res;
+        int[] ans = new int[res.length];
+        for (int i = 0; i < res.length; i++) {
+            ans[i] = res[res.length - 1 - i];
+        }
+
+        return ans;
     }
 }
