@@ -1,48 +1,34 @@
-class Solution {
+public class Solution {
     public boolean canChange(String start, String target) {
-        // First, remove all underscores and compare the sequences of L and R
-        String startWithoutUnderscore = start.replace("_", "");
-        String targetWithoutUnderscore = target.replace("_", "");
+        int startLength = start.length();
+        // Pointers for start string and target string
+        int startIndex = 0, targetIndex = 0;
 
-        if (!startWithoutUnderscore.equals(targetWithoutUnderscore)) {
-            return false; // The sequence of L and R characters must be the same
-        }
-
-        int startPointer = 0;
-        int targetPointer = 0;
-
-        while (startPointer < start.length() && targetPointer < target.length()) {
-            // Move startPointer and targetPointer to the next non-underscore character
-            while (startPointer < start.length() && start.charAt(startPointer) == '_') {
-                startPointer++;
+        while (startIndex < startLength || targetIndex < startLength) {
+            // Skip underscores in start
+            while (startIndex < startLength && start.charAt(startIndex) == '_') {
+                startIndex++;
             }
-            while (targetPointer < target.length() && target.charAt(targetPointer) == '_') {
-                targetPointer++;
+            // Skip underscores in target
+            while (targetIndex < startLength && target.charAt(targetIndex) == '_') {
+                targetIndex++;
+            }
+            // If one string is exhausted, both should be exhausted
+            if (startIndex == startLength || targetIndex == startLength) {
+                return startIndex == startLength && targetIndex == startLength;
             }
 
-            // Check if we have reached the end
-            if (startPointer == start.length() && targetPointer == target.length()) {
-                return true;
-            }
-
-            // Ensure characters are the same
-            if (start.charAt(startPointer) != target.charAt(targetPointer)) {
+            // Check if the pieces match and follow movement rules
+            if (start.charAt(startIndex) != target.charAt(targetIndex) ||
+                    (start.charAt(startIndex) == 'L' && startIndex < targetIndex) ||
+                    (start.charAt(startIndex) == 'R' && startIndex > targetIndex))
                 return false;
-            }
 
-            // Verify the movement constraints:
-            if (start.charAt(startPointer) == 'L' && startPointer < targetPointer) {
-                return false; // 'L' can only move to the left
-            }
-            if (start.charAt(startPointer) == 'R' && startPointer > targetPointer) {
-                return false; // 'R' can only move to the right
-            }
-
-            // Move to the next characters
-            startPointer++;
-            targetPointer++;
+            startIndex++;
+            targetIndex++;
         }
 
+        // If all conditions are satisfied, return true
         return true;
     }
 }
