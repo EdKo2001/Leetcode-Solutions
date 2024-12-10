@@ -33,7 +33,7 @@ class Solution {
     // }
 
     public int maximumLength(String s) {
- int n = s.length();
+        int n = s.length();
         int left = 1, right = n;
         int maxLength = -1;
 
@@ -50,7 +50,7 @@ class Solution {
 
         return maxLength;
     }
-    
+
     // Check if there exists a special substring of given length that appears at least 3 times
     private boolean canFindSpecialSubstring(String s, int length) {
         HashMap<String, Integer> substringCount = new HashMap<>();
