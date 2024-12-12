@@ -13,12 +13,12 @@ class Solution {
         res.add(new ArrayList<>());
         res.add(new ArrayList<>());
 
-        for (int playerStats : playersStats.keySet()) {
-            if (playersStats.get(playerStats) == 0) {
-                res.get(0).add(playerStats);
-            }
-            if (playersStats.get(playerStats) == -1) {
-                res.get(1).add(playerStats);
+        for (int player : playersStats.keySet()) {
+            int losses = playersStats.get(player);
+            if (losses == 0) {
+                res.get(0).add(player);
+            } else if (losses == -1) {
+                res.get(1).add(player);
             }
         }
 
