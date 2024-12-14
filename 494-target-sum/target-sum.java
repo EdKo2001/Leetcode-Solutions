@@ -17,7 +17,6 @@ class Solution {
     }
 
     private int countSubsets(int[] nums, int sum) {
-        int n = nums.length;
         int[] dp = new int[sum + 1];
         dp[0] = 1; // Base case: one way to achieve a sum of 0 (use no elements)
 
