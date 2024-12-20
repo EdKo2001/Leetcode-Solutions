@@ -1,20 +1,14 @@
 class Solution {
     public int numberOfChild(int n, int k) {
-        int ans = 0;
-        boolean plus = true;
-        for (int i = 1; i <= k; i++) {
-            if (plus) {
-                ans++;
-                if (ans == n - 1) {
-                    plus = false;
-                }
-            } else {
-                ans--;
-                if (ans == 0) {
-                    plus = true;
-                }
-            }
+        // Find the effective position in the oscillation period
+        int period = 2 * (n - 1);
+        int effectivePosition = k % period;
+
+        // If within the ascending part of the period
+        if (effectivePosition <= n - 1) {
+            return effectivePosition;
         }
-        return ans;
+        // If within the descending part of the period
+        return period - effectivePosition;
     }
 }
