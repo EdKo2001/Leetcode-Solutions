@@ -15,8 +15,8 @@
  */
 class Solution {
     public TreeNode reverseOddLevels(TreeNode root) {
-        dfs(root.left, root.right, 1);
-        // bfs(root);
+        // dfs(root.left, root.right, 1);
+        bfs(root);
         return root;
     }
 
