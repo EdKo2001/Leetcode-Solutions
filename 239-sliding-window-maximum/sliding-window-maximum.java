@@ -16,7 +16,7 @@ class Solution {
                 deque.pollLast();
             }
 
-            deque.addLast(i);
+            deque.offerLast(i);
 
             if (i >= k - 1) {
                 res[resultIndex++] = nums[deque.peekFirst()];
