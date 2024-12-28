@@ -14,8 +14,7 @@ class Solution {
             return head;
 
         // Create a dummy node to handle edge cases like left == 1
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
+        ListNode dummy = new ListNode(0, head);
         ListNode prev = dummy;
 
         // Step 1: Traverse to the node just before the 'left' position
