@@ -5,7 +5,7 @@ class Solution {
 
         while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
-            if (feasable(weights, days, mid)) {
+            if (feasible(weights, days, mid)) {
                 hi = mid;
             } else {
                 lo = ++mid;
@@ -15,7 +15,7 @@ class Solution {
         return lo;
     }
 
-    private static boolean feasable(int[] weights, int days, int capacity) {
+    private static boolean feasible(int[] weights, int days, int capacity) {
         int daysCnt = 1;
         int capacityCnt = 0;
         for (int weight : weights) {
