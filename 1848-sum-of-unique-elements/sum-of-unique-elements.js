@@ -4,20 +4,27 @@
  */
 var sumOfUnique = function (nums) {
     // Object
-    const dic = {};
+    // const dic = {};
+    // for (let num of nums) {
+    //     dic[num] = (dic[num] || 0) + 1;
+    // }
+    // let ans = 0;
+    // for (const [key, val] of Object.entries(dic)) {
+    //     if (val === 1) {
+    //         ans += +key;
+    //     }
+    // }
+    // return ans;
+    // Map
+    const dic = new Map();
     for (let num of nums) {
-        if (dic.hasOwnProperty(num)) {
-            dic[num] += 1;
-        } else {
-            dic[num] = 1
-        }
+        dic.set(num, (dic.get(num) || 0) + 1);
     }
     let ans = 0;
-    for (const [key, val] of Object.entries(dic)) {
+    for (const [key, val] of dic) {
         if (val === 1) {
-            ans += +key;
+            ans += key;
         }
     }
     return ans;
-    // Map
 };
