@@ -10,19 +10,22 @@
  * @param {TreeNode} root
  * @return {string[]}
  */
-var binaryTreePaths = function (root) {
+var binaryTreePaths = function(root) {
     const res = [];
 
-    const backtracking = (node, arr) => {
-        if (!node.left && !node.right) {
-            arr.push(node.val);
-            res.push(arr.join("->"));
-        } else {
-            node.left && backtracking(node.left, [...arr, node.val]);
-            node.right && backtracking(node.right, [...arr, node.val]);
-        }
-    }
+    const traverse = (node, path) => {
+        if (!node) return;
 
-    backtracking(root, []);
+        path += node.val;
+
+        if (!node.left && !node.right) {
+            res.push(path);
+        } else {
+            traverse(node.left, path + "->");
+            traverse(node.right, path + "->");
+        }
+    };
+
+    traverse(root, "");
     return res;
 };
