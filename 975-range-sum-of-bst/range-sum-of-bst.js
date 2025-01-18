@@ -14,20 +14,34 @@
  * @return {number}
  */
 var rangeSumBST = function (root, low, high) {
-    return dfs(root, low, high);
+    // return dfs(root, low, high);
+    return bfs(root, low, high);
 };
 
-const dfs = (node, low, high) => {
-    if (!node) return 0;
+// const dfs = (node, low, high) => {
+//     if (!node) return 0;
 
+//     let sum = 0;
+
+//     if (node.val >= low && node.val <= high) sum += node.val;
+
+//     if (node.left) sum += dfs(node.left, low, high);
+//     if (node.right) sum += dfs(node.right, low, high);
+
+//     return sum;
+// };
+
+const bfs = (node, low, high) => {
     let sum = 0;
+    const queue = [];
+    queue.push(node);
 
-    if (node.val >= low && node.val <= high) {
-        sum += node.val;
+    while (queue.length > 0) {
+        const curr = queue.shift();
+        if (curr.val >= low && curr.val <= high) sum += curr.val;
+        if (curr.left) queue.push(curr.left);
+        if (curr.right) queue.push(curr.right);
     }
 
-    if (node.left) sum += dfs(node.left, low, high);
-    if (node.right) sum += dfs(node.right, low, high);
-
     return sum;
-};
+}
