@@ -21,16 +21,16 @@ class Solution {
 
     //     grid[i][j] = '0';
 
-    //     bfs(grid, i + 1, j);
-    //     bfs(grid, i - 1, j);
-    //     bfs(grid, i, j + 1);
-    //     bfs(grid, i, j - 1);
+    //     dfs(grid, i + 1, j);
+    //     dfs(grid, i - 1, j);
+    //     dfs(grid, i, j + 1);
+    //     dfs(grid, i, j - 1);
     // }
 
     private void bfs(char[][] grid, int i, int j) {
         Queue<int[]> queue = new LinkedList<>();
         queue.offer(new int[] { i, j });
-        grid[i][j] = '0';
+        
         
         int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
@@ -38,6 +38,7 @@ class Solution {
             int[] pair = queue.poll();
             int row = pair[0];
             int col = pair[1];
+            grid[i][j] = '0';
 
             for (int[] dir : directions) {
                 int newRow = row + dir[0];
@@ -49,7 +50,6 @@ class Solution {
 
                 queue.offer(new int[] { newRow, newCol });
                 grid[newRow][newCol] = '0';
-
             }
         }
     }
