@@ -21,7 +21,7 @@ var findAnagrams = function (s, p) {
                 res.push(left);
             }
             windowTable[s[left]]--;
-            // if (windowTable[s[left]] === 0) delete windowTable[s[left]];
+            if (windowTable[s[left]] === 0) delete windowTable[s[left]];
             left++;
         }
 
