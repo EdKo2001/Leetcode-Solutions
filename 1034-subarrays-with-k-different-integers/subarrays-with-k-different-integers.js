@@ -4,6 +4,15 @@
  * @return {number}
  */
 // Approach 1: Sliding Window with Two Calls
+
+// Time Complexity:
+// The function slidingWindowAtMost(nums, k) runs O(n).
+// Since we call it twice (once for k and once for k-1), the overall time complexity is O(2n) = O(n).
+
+// Space Complexity:
+// The freqMap can store at most k elements at any time, so it takes O(k) space.
+// Overall, the space complexity is O(k).
+
 // function subarraysWithKDistinct(nums, k) {
 //     return slidingWindowAtMost(nums, k) - slidingWindowAtMost(nums, k - 1);
 // }
@@ -30,6 +39,16 @@
 // }
 
 // Approach 2: Sliding Window in One Pass
+
+// Time Complexity:
+// We maintain a single sliding window and adjust left dynamically.
+// Each element is processed at most twice (once when added, once when removed).
+// Therefore, the complexity remains O(n).
+
+// Space Complexity:
+// The freqMap stores at most k distinct elements at any time, leading to O(k) space complexity.
+// Overall, it is O(k).
+
 function subarraysWithKDistinct(nums, k) {
     let left = 0, right = 0, totalCount = 0, currCount = 0;
     let freqMap = new Map();
