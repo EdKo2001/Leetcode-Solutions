@@ -3,6 +3,8 @@
  * @param {string} p
  * @return {number[]}
  */
+// Time Complexity: O(N) (since we check at most 26 letters at each step)
+// Space Complexity: O(1) (constant since there are only 26 lowercase letters)
 var findAnagrams = function (s, p) {
     const anagramTable = {};
     for (const char of p) {
