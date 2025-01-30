@@ -13,30 +13,30 @@
 // The freqMap can store at most k elements at any time, so it takes O(k) space.
 // Overall, the space complexity is O(k).
 
-// function subarraysWithKDistinct(nums, k) {
-//     return slidingWindowAtMost(nums, k) - slidingWindowAtMost(nums, k - 1);
-// }
+function subarraysWithKDistinct(nums, k) {
+    return slidingWindowAtMost(nums, k) - slidingWindowAtMost(nums, k - 1);
+}
 
-// function slidingWindowAtMost(nums, k) {
-//     let left = 0, totalCount = 0;
-//     let freqMap = new Map();
+function slidingWindowAtMost(nums, k) {
+    let left = 0, totalCount = 0;
+    let freqMap = new Map();
 
-//     for (let right = 0; right < nums.length; right++) {
-//         freqMap.set(nums[right], (freqMap.get(nums[right]) || 0) + 1);
+    for (let right = 0; right < nums.length; right++) {
+        freqMap.set(nums[right], (freqMap.get(nums[right]) || 0) + 1);
         
-//         while (freqMap.size > k) {
-//             freqMap.set(nums[left], freqMap.get(nums[left]) - 1);
-//             if (freqMap.get(nums[left]) === 0) {
-//                 freqMap.delete(nums[left]);
-//             }
-//             left++;
-//         }
+        while (freqMap.size > k) {
+            freqMap.set(nums[left], freqMap.get(nums[left]) - 1);
+            if (freqMap.get(nums[left]) === 0) {
+                freqMap.delete(nums[left]);
+            }
+            left++;
+        }
         
-//         totalCount += right - left + 1;
-//     }
+        totalCount += right - left + 1;
+    }
 
-//     return totalCount;
-// }
+    return totalCount;
+}
 
 // Approach 2: Sliding Window in One Pass
 
@@ -49,39 +49,39 @@
 // The freqMap stores at most k distinct elements at any time, leading to O(k) space complexity.
 // Overall, it is O(k).
 
-function subarraysWithKDistinct(nums, k) {
-    let left = 0, right = 0, totalCount = 0, currCount = 0;
-    let freqMap = new Map();
+// function subarraysWithKDistinct(nums, k) {
+//     let left = 0, right = 0, totalCount = 0, currCount = 0;
+//     let freqMap = new Map();
 
-    while (right < nums.length) {
-        // Add current element to the frequency map
-        freqMap.set(nums[right], (freqMap.get(nums[right]) || 0) + 1);
+//     while (right < nums.length) {
+//         // Add current element to the frequency map
+//         freqMap.set(nums[right], (freqMap.get(nums[right]) || 0) + 1);
 
-        if (freqMap.get(nums[right]) === 1) k--; // New distinct element
+//         if (freqMap.get(nums[right]) === 1) k--; // New distinct element
         
-        // If we exceed k distinct elements, shrink the window
-        if (k < 0) {
-            freqMap.set(nums[left], freqMap.get(nums[left]) - 1);
-            if (freqMap.get(nums[left]) === 0) {
-                freqMap.delete(nums[left]);
-            }
-            left++;
-            k++;
-            currCount = 0;
-        }
+//         // If we exceed k distinct elements, shrink the window
+//         if (k < 0) {
+//             freqMap.set(nums[left], freqMap.get(nums[left]) - 1);
+//             if (freqMap.get(nums[left]) === 0) {
+//                 freqMap.delete(nums[left]);
+//             }
+//             left++;
+//             k++;
+//             currCount = 0;
+//         }
 
-        // If we have exactly k distinct elements, count subarrays
-        if (k === 0) {
-            while (freqMap.get(nums[left]) > 1) {
-                freqMap.set(nums[left], freqMap.get(nums[left]) - 1);
-                left++;
-                currCount++;
-            }
-            totalCount += currCount + 1;
-        }
+//         // If we have exactly k distinct elements, count subarrays
+//         if (k === 0) {
+//             while (freqMap.get(nums[left]) > 1) {
+//                 freqMap.set(nums[left], freqMap.get(nums[left]) - 1);
+//                 left++;
+//                 currCount++;
+//             }
+//             totalCount += currCount + 1;
+//         }
 
-        right++;
-    }
+//         right++;
+//     }
 
-    return totalCount;
-}
+//     return totalCount;
+// }
