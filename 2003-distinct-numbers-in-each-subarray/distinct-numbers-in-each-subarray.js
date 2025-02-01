@@ -5,12 +5,12 @@
  */
 var distinctNumbers = function (nums, k) {
     const freqMap = new Map();
-    const result = [];
+    const res = new Array(nums.length - k + 1);
 
     for (let i = 0; i < k; i++) {
         freqMap.set(nums[i], (freqMap.get(nums[i]) || 0) + 1);
     }
-    result.push(freqMap.size);
+    res[0] = freqMap.size;
 
     for (let i = k; i < nums.length; i++) {
         freqMap.set(nums[i], (freqMap.get(nums[i]) || 0) + 1);
@@ -21,19 +21,19 @@ var distinctNumbers = function (nums, k) {
             freqMap.delete(oldElement);
         }
 
-        result.push(freqMap.size);
+        res[i - k + 1] = freqMap.size;
     }
 
-    return result;
+    return res;
 
     // const freqMap = new Map();
-    // const result = [];
+    // const res = new Array(nums.length - k + 1);
 
     // for (let i = 0; i < nums.length; i++) {
     //     freqMap.set(nums[i], (freqMap.get(nums[i]) || 0) + 1);
 
     //     if (i >= k - 1) {
-    //         result.push(freqMap.size);
+    //         res[i - k + 1] = freqMap.size;
 
     //         const oldElement = nums[i - k + 1];
     //         freqMap.set(oldElement, freqMap.get(oldElement) - 1);
@@ -43,5 +43,5 @@ var distinctNumbers = function (nums, k) {
     //     }
     // }
 
-    // return result;
+    // return res;
 };
