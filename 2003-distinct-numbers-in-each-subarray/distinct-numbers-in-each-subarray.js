@@ -5,22 +5,43 @@
  */
 var distinctNumbers = function (nums, k) {
     const freqMap = new Map();
-    const res = new Array(nums.length - k + 1);
+    const result = [];
 
-    for (let i = 0; i < nums.length; i++) {
-        const num = nums[i];
+    for (let i = 0; i < k; i++) {
+        freqMap.set(nums[i], (freqMap.get(nums[i]) || 0) + 1);
+    }
+    result.push(freqMap.size);
 
-        freqMap.set(num, (freqMap.get(num) || 0) + 1);
+    for (let i = k; i < nums.length; i++) {
+        freqMap.set(nums[i], (freqMap.get(nums[i]) || 0) + 1);
 
-        if (i >= k - 1) {
-            res[i - k + 1] = freqMap.size;
-
-            freqMap.set(nums[i - k + 1], freqMap.get(nums[i - k + 1]) - 1);
-            if (freqMap.get(nums[i - k + 1]) === 0) {
-                freqMap.delete(nums[i - k + 1]);
-            }
+        const oldElement = nums[i - k];
+        freqMap.set(oldElement, freqMap.get(oldElement) - 1);
+        if (freqMap.get(oldElement) === 0) {
+            freqMap.delete(oldElement);
         }
+
+        result.push(freqMap.size);
     }
 
-    return res;
+    return result;
+
+    // const freqMap = new Map();
+    // const result = [];
+
+    // for (let i = 0; i < nums.length; i++) {
+    //     freqMap.set(nums[i], (freqMap.get(nums[i]) || 0) + 1);
+
+    //     if (i >= k - 1) {
+    //         result.push(freqMap.size);
+
+    //         const oldElement = nums[i - k + 1];
+    //         freqMap.set(oldElement, freqMap.get(oldElement) - 1);
+    //         if (freqMap.get(oldElement) === 0) {
+    //             freqMap.delete(oldElement);
+    //         }
+    //     }
+    // }
+
+    // return result;
 };
