@@ -4,14 +4,14 @@
  * @return {string}
  */
 var minWindow = function (s, t) {
-    if (s.length < t.length) return ""; // Edge case: impossible to have a valid window
+    if (s.length < t.length) return "";
 
     const tFreq = new Map();
     for (const char of t) {
         tFreq.set(char, (tFreq.get(char) || 0) + 1);
     }
 
-    let requiredChars = tFreq.size; // Unique characters in `t` that must be in the window
+    let requiredChars = tFreq.size; 
     let left = 0, right = 0, formed = 0;
     let windowCounts = new Map();
     let minLen = Infinity, minStart = 0;
