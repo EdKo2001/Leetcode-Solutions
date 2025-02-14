@@ -3,13 +3,9 @@
  * @return {string}
  */
 var countAndSay = function (n) {
-    let stack = [];
+    let stack = [1];
 
-    for (let i = 1; i <= n; i++) {
-        if (i == 1) {
-            stack.push(1);
-            continue;
-        }
+    for (let i = 2; i <= n; i++) {
         const temp = [];
         let prevNumber = stack[0];
         let cnt = 1;
