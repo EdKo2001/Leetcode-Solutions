@@ -31,27 +31,29 @@
 //     return stack.join('');
 // };
 
+/**
+ * @param {number} n
+ * @return {string}
+ */
 var countAndSay = function (n) {
-    if (n === 1) return "1";
-
-    let result = "1";
+    let prev = "1";
 
     for (let i = 2; i <= n; i++) {
-        let temp = [];
         let count = 1;
+        let result = "";
 
-        for (let j = 1; j < result.length; j++) {
-            if (result[j] === result[j - 1]) {
+        for (let j = 1; j < prev.length; j++) {
+            if (prev[j] === prev[j - 1]) {
                 count++;
             } else {
-                temp.push(count, result[j - 1]);
+                result += count + prev[j - 1];
                 count = 1;
             }
         }
 
-        temp.push(count, result[result.length - 1]);
-        result = temp.join('');
+        result += count + prev[prev.length - 1];
+        prev = result;
     }
 
-    return result;
+    return prev;
 };
