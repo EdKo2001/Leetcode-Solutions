@@ -8,7 +8,7 @@ var boldWords = function (words, s) {
 
     for (let i = 0; i < s.length; i++) {
         for (const word of words) {
-            if (s.slice(i, i + word.length) === word) {
+            if (s.startsWith(word, i)) {
                 for (let j = i; j < i + word.length; j++) {
                     bold[j] = true;
                 }
