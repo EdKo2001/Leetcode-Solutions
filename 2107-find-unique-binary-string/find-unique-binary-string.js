@@ -2,22 +2,25 @@
  * @param {string[]} nums
  * @return {string}
  */
-var findDifferentBinaryString = function (nums) {
-    let n = nums[0].length;
-    const numbersSet = new Set(nums);
-    let ans = "-1";
+// var findDifferentBinaryString = function (nums) {
+//     const n = nums.length;
+//     const numbersSet = new Set(nums);
 
-    const generateBinaryString = (str) => {
-        if (str.length === n && !numbersSet.has(str)) {
-            return ans = str;
-        }
-        if (str.length === n) return;
-        for (let i = 0; i < 2; i++) {
-            generateBinaryString(str + i);
-        }
-    }
+//     const generateBinaryString = (str) => {
+//         if (str.length === n) {
+//             if (!numbersSet.has(str)) return str;
+//             return null;
+//         }
 
-    generateBinaryString("");
+//         let result = generateBinaryString(str + '0');
+//         if (result) return result;
 
-    return ans;
-};
+//         return generateBinaryString(str + '1');
+//     };
+
+//     return generateBinaryString("") || "";
+// };
+
+// One line solution
+var findDifferentBinaryString = (nums) => nums.map((num, i) => (num[i] === '0' ? '1' : '0')).join('');
+
