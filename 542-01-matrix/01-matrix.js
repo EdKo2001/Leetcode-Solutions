@@ -3,37 +3,33 @@
  * @return {number[][]}
  */
 var updateMatrix = function (mat) {
-    const n = mat.length;
-    const m = mat[0].length;
-    const res = new Array(n).fill().map(() => new Array(m).fill(0));
+    const rows = mat.length, cols = mat[0].length;
     const queue = [];
-    const seen = new Array(n).fill().map(() => new Array(m).fill(false));
 
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < m; j++) {
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
             if (mat[i][j] === 0) {
-                queue.push([i, j, 0]);
-                seen[i][j] = true;
+                queue.push([i, j]);
+            } else {
+                mat[i][j] = -1;
             }
         }
     }
+    const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
-    const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
     while (queue.length > 0) {
-        const node = queue.shift();
-        const row = node[0];
-        const col = node[1];
-        const steps = node[2];
-        for (const dir of directions) {
-            const nextRow = row + dir[0];
-            const nextCol = col + dir[1];
-            if (0 <= nextRow && nextRow < n && 0 <= nextCol && nextCol < m && !seen[nextRow][nextCol]) {
-                seen[nextRow][nextCol] = true;
-                queue.push([nextRow, nextCol, steps + 1]);
-                res[nextRow][nextCol] = steps + 1;
+        const [row, col] = queue.shift();
+
+        for (const [dr, dc] of directions) {
+            const newRow = row + dr;
+            const newCol = col + dc;
+
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && mat[newRow][newCol] === -1) {
+                mat[newRow][newCol] = mat[row][col] + 1;
+                queue.push([newRow, newCol]);
             }
         }
     }
 
-    return res;
+    return mat;
 };
