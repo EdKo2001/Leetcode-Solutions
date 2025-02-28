@@ -4,14 +4,18 @@
  * @return {number[][]}
  */
 var combine = function (n, k) {
-    const arr = [];
-    const generate = (curr, prev) => {
-        if (curr.length == k) return arr.push(curr);
-        for (let i = 1; i <= n; i++) {
-            if (i <= prev) continue;
-            generate([...curr, i], i);
+    const result = [];
+    const backtrack = (start, path) => {
+        if (path.length === k) {
+            result.push([...path]);
+            return;
         }
-    }
-    generate([], null);
-    return arr;
+        for (let i = start; i <= n; i++) {
+            path.push(i);          // Choose
+            backtrack(i + 1, path); // Explore
+            path.pop();            // Unchoose (backtrack)
+        }
+    };
+    backtrack(1, []);
+    return result;
 };
