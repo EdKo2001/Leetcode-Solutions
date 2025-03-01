@@ -4,21 +4,16 @@
  * @return {number[][]}
  */
 var combinationSum3 = function (k, n) {
-    const res = [];
-
-    const backtracking = (arr, sum, start) => {
-        if (sum === n && arr.length === k) {
-            res.push([...arr]);
-            return;
-        }
-        if (sum > n || arr.length === k) return;
+    const ans = [];
+    const backtracking = (start, sum, arr) => {
+        if (arr.length === k && sum === n) return ans.push([...arr]);
+        if (arr.length >= k || sum >= n) return;
         for (let i = start; i <= 9; i++) {
             arr.push(i);
-            backtracking(arr, sum + i, i + 1);
+            backtracking(i + 1, sum + i, arr);
             arr.pop();
         }
     }
-
-    backtracking([], 0, 1);
-    return res;
+    backtracking(1, 0, []);
+    return ans;
 };
