@@ -7,8 +7,7 @@ var combine = function (n, k) {
     const result = [];
     const backtrack = (start, path) => {
         if (path.length === k) {
-            result.push([...path]);
-            return;
+            return result.push([...path]);
         }
         for (let i = start; i <= n; i++) {
             path.push(i);          // Choose
