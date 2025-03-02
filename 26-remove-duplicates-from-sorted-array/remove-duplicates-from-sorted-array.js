@@ -1,3 +1,7 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
 var removeDuplicates = function (nums) {
     let i = 1; // Pointer for the next unique element
 
