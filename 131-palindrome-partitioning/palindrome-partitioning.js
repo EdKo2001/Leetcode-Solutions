@@ -17,8 +17,7 @@ var partition = function (s) {
 
     function backtrack(start, path) {
         if (start === n) {
-            res.push([...path]);
-            return;
+            return res.push([...path]);
         }
         for (let end = start; end < n; end++) {
             if (isPalindrome(start, end)) {
