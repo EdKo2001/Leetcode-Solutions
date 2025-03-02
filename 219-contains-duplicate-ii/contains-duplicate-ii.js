@@ -9,6 +9,11 @@ var containsNearbyDuplicate = function (nums, k) {
         const num = nums[i];
         if (seen.has(num) && i - seen.get(num) <= k) return true;
         seen.set(num, i);
+        
+        // Remove elements that are too far in the past
+        if (i >= k) {
+            seen.delete(nums[i - k]);
+        }
     }
     return false;
 };
