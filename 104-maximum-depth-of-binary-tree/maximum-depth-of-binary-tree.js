@@ -11,9 +11,7 @@
  * @return {number}
  */
 var maxDepth = function (root) {
-    let max = 0;
-    max = Math.max(max, traverse(root, 0));
-    return max;
+    return traverse(root, 0);
 };
 
 const traverse = (node, depth) => {
