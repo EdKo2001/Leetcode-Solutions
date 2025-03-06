@@ -3,21 +3,17 @@
  * @return {number[]}
  */
 var findMissingAndRepeatedValues = function (grid) {
-    const arr = Array.from({ length: (grid.length * grid[0].length) + 1 }).fill(false);
-    const ans = [-1, -1];
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[0].length; j++) {
-            if (arr[grid[i][j]]) {
-                ans[0] = grid[i][j];
-            }
-            arr[grid[i][j]] = true;
+    const n = grid.length * grid[0].length;
+    const seen = new Set();
+    let repeated = -1, sum = 0, expectedSum = (n * (n + 1)) / 2;
+
+    for (const row of grid) {
+        for (const num of row) {
+            if (seen.has(num)) repeated = num;
+            seen.add(num);
+            sum += num;
         }
     }
-    for (let i = 1; i < arr.length; i++) {
-        if (arr[i] === false) {
-            ans[1] = i;
-            return ans;
-        }
-    }
-    return ans;
+
+    return [repeated, expectedSum - (sum - repeated)];
 };
