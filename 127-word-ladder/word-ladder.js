@@ -5,6 +5,12 @@
  * @return {number}
  */
 
+// Time Complexity
+// Original BFS: O(N * M * 26) where N = wordList.length, M = word length
+// Bidirectional BFS: O(N * M), nearly 50% faster than regular BFS in most cases.
+
+// Space Complexity: O(N + L)
+
 const aCharCode = "a".charCodeAt(0);
 
 var ladderLength = function (beginWord, endWord, wordList) {
