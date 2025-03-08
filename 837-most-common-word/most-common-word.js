@@ -5,7 +5,7 @@
  */
 var mostCommonWord = function (paragraph, banned) {
     const freq = {};
-    const bannedSet = new Set(banned.map(word => word.toLowerCase()));
+    const bannedSet = new Set(banned);
 
 
     const normalizedStr = paragraph.toLowerCase().replace(/[^a-z0-9]+/g, ' ');
