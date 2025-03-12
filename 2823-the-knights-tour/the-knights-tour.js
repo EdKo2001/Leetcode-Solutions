@@ -11,8 +11,6 @@ var tourOfKnight = function (m, n, r, c) {
         [-2, -1], [-2, 1], [2, -1], [2, 1],
         [-1, -2], [-1, 2], [1, -2], [1, 2]
     ];
-
-    let step = 0;
     
     const backtrack = (x, y, moveCount) => {
         if (moveCount === m * n) return true; // Base case: board filled
