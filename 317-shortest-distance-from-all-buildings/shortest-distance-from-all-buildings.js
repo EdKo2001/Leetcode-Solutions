@@ -1,53 +1,63 @@
-/**
- * @param {number[][]} grid
- * @return {number}
- */
 var shortestDistance = function(grid) {
-    const m = grid.length, n = grid[0].length;
-    const dist = Array.from({ length: m }, () => Array(n).fill(0));
-    const reach = Array.from({ length: m }, () => Array(n).fill(0));
-    let totalBuildings = 0;
-    const directions = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    const m = grid.length;
+    if (m === 0) return -1;
+    const n = grid[0].length;
 
-    // Count total buildings and perform BFS from each building
+    const buildings = [];
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
             if (grid[i][j] === 1) {
-                totalBuildings++;
-                const queue = [[i, j, 0]]; // x, y, current distance
-                const visited = Array.from({ length: m }, () => Array(n).fill(false));
-                visited[i][j] = true;
+                buildings.push([i, j]);
+            }
+        }
+    }
 
-                while (queue.length) {
-                    const [x, y, d] = queue.shift();
-                    for (const [dx, dy] of directions) {
-                        const nx = x + dx, ny = y + dy;
-                        if (
-                            nx >= 0 && nx < m &&
-                            ny >= 0 && ny < n &&
-                            !visited[nx][ny] &&
-                            grid[nx][ny] === 0
-                        ) {
-                            visited[nx][ny] = true;
-                            dist[nx][ny] += d + 1;
-                            reach[nx][ny]++;
-                            queue.push([nx, ny, d + 1]);
-                        }
+    const totalBuildings = buildings.length;
+    if (totalBuildings === 0) return -1;
+
+    const distances = Array.from({ length: m }, () => new Array(n).fill(0));
+    const reach = Array.from({ length: m }, () => new Array(n).fill(0));
+
+    const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+
+    for (const [x, y] of buildings) {
+        const queue = [[x, y]];
+        const visited = Array.from({ length: m }, () => new Array(n).fill(false));
+        visited[x][y] = true;
+        let level = 0;
+
+        while (queue.length > 0) {
+            const size = queue.length;
+            for (let i = 0; i < size; i++) {
+                const [currX, currY] = queue.shift();
+
+                if (grid[currX][currY] === 0) {
+                    distances[currX][currY] += level;
+                    reach[currX][currY]++;
+                }
+
+                for (const [dx, dy] of dirs) {
+                    const newX = currX + dx;
+                    const newY = currY + dy;
+
+                    if (newX >= 0 && newX < m && newY >= 0 && newY < n && !visited[newX][newY] && grid[newX][newY] === 0) {
+                        visited[newX][newY] = true;
+                        queue.push([newX, newY]);
                     }
                 }
             }
+            level++;
         }
     }
 
-    // Find the minimum distance from an empty land that can reach all buildings.
-    let ans = Infinity;
+    let minDistance = Infinity;
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
             if (grid[i][j] === 0 && reach[i][j] === totalBuildings) {
-                ans = Math.min(ans, dist[i][j]);
+                minDistance = Math.min(minDistance, distances[i][j]);
             }
         }
     }
 
-    return ans === Infinity ? -1 : ans;
+    return minDistance === Infinity ? -1 : minDistance;
 };
